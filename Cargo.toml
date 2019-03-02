@@ -5,3 +5,4 @@ authors = ["Paul Jickling <pjickling@gmail.com>"]
 edition = "2018"
 
 [dependencies]
+termion = "1.5.1"
