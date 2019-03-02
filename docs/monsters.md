@@ -1,10 +1,10 @@
 # Monsters
 
-`a`
+`a` Ape
 
 `A`
 
-`b`
+`b` Boar
 
 `B`
 
@@ -12,7 +12,7 @@
 
 `C`
 
-`d`
+`d` Wolf
 
 `D`
 
@@ -88,7 +88,7 @@
 
 `V`
 
-`w`
+`w` Wyrm
 
 `W`
 
