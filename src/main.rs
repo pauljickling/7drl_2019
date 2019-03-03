@@ -1,5 +1,8 @@
+extern crate termion;
+
 use std::io;
 use std::process::Command;
+use termion::clear;
 
 fn main() {
     let generate = Command::new("src/generate/proc.o")
@@ -14,25 +17,21 @@ fn main() {
     }
     // println!("{}", _files);
 
-    // clears screen
-    print!("{}[2J", 27 as char);
+    println!("{}", clear::All);
 
     println!("What is your name?");
 
-    let mut input = String::new();
-    match io::stdin().read_line(&mut input) {
-        Ok(_n) => println!("Name: {}", input),
+    let mut name = String::new();
+    match io::stdin().read_line(&mut name) {
+        Ok(_n) => println!("Name: {}", name),
         Err(error) => println!("error: {}", error),
     }
     // print!("{}", _files);
 
-    print!("{}[2J", 27 as char);
+    println!("{}", clear::All);
 
-    let mut two_d_dungeon = String::from("###@###");
-    println!("\t{}", two_d_dungeon);
+    let mut _two_d_dungeon = String::from("###@###");
+    println!("{}", _files);
     println!("\n\n");
-    println!("Name: {}Class: Hunter  Lvl: 1  HP: 20", input);
-
-    // this is how you handle game input
-    // let mut byteInput = stdin.bytes();
+    println!("Name: {}Class: Hunter  Lvl: 1  HP: 20", name);
 }
