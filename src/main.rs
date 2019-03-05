@@ -31,12 +31,18 @@ fn main() {
     }
 
     println!("{}", clear::All);
-    println!("Roguelike Prototype. Press q to quit.");
 
     // Enter Raw Mode
     let stdin = stdin();
     let mut stdout = stdout().into_raw_mode().unwrap();
 
+    write!(
+        stdout,
+        "{}{}Roguelike Prototype. Press q to quit.",
+        cursor::Goto(1, 1),
+        color::Fg(color::LightGreen)
+    )
+    .unwrap();
     // Cursor Definitions
     let mut height = 3;
     let mut width = 1;
@@ -45,6 +51,7 @@ fn main() {
     // Dungeon Definitions
     let mut dungeon_map = HashMap::new();
     let mut dungeon_line = String::new();
+    write!(stdout, "{}", cursor::Goto(1, 4)).unwrap();
     for c in dungeon.chars() {
         if c == '\n' {
             height += 1;
@@ -54,7 +61,8 @@ fn main() {
             writeln!(stdout, "{}", cursor::Goto(1, height)).unwrap();
         } else {
             if c == '@' {
-                player_position = (width, height as i16);
+                let player_height = height + 1;
+                player_position = (width, player_height as i16);
             }
             dungeon_line.push(c);
             dungeon_map.insert((width, height), c);
@@ -129,15 +137,12 @@ fn main() {
                 .unwrap();
                 player_position = new_pos;
             }
-            _ => println!("Oops!"),
+            _ => writeln!(stdout, "{}Oops!", cursor::Goto(1, 80)).unwrap(),
         }
     }
-
+    println!("Name: {}Class: Hunter  Lvl: 1  HP: 4", name);
     // exit process
     writeln!(stdout, "{}{}", clear::All, cursor::Goto(1, 1)).unwrap();
-
-    println!("{}{}", color::Fg(color::LightGreen), dungeon);
-    println!("Name: {}Class: Hunter  Lvl: 1  HP: 4", name);
 }
 
 fn move_player(old: (i16, i16), direction: &str) -> (i16, i16) {
