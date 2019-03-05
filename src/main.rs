@@ -75,6 +75,7 @@ fn main() {
             Key::Char('q') => break,
             Key::Left => {
                 let new_pos = move_player(player_position, "left");
+                let cur_height = new_pos.1 - 1;
                 writeln!(
                     stdout,
                     "{}@",
@@ -83,14 +84,16 @@ fn main() {
                 .unwrap();
                 writeln!(
                     stdout,
-                    "{}.",
-                    cursor::Goto(player_position.0 as u16, player_position.1 as u16)
+                    "{}.{}",
+                    cursor::Goto(player_position.0 as u16, player_position.1 as u16),
+                    cursor::Goto(new_pos.0 as u16, cur_height as u16)
                 )
                 .unwrap();
                 player_position = new_pos;
             }
             Key::Right => {
                 let new_pos = move_player(player_position, "right");
+                let cur_height = new_pos.1 - 1;
                 writeln!(
                     stdout,
                     "{}@",
@@ -99,14 +102,16 @@ fn main() {
                 .unwrap();
                 writeln!(
                     stdout,
-                    "{}.",
-                    cursor::Goto(player_position.0 as u16, player_position.1 as u16)
+                    "{}.{}",
+                    cursor::Goto(player_position.0 as u16, player_position.1 as u16),
+                    cursor::Goto(new_pos.0 as u16, cur_height as u16)
                 )
                 .unwrap();
                 player_position = new_pos;
             }
             Key::Up => {
                 let new_pos = move_player(player_position, "up");
+                let cur_height = new_pos.1 - 1;
                 writeln!(
                     stdout,
                     "{}@",
@@ -115,14 +120,16 @@ fn main() {
                 .unwrap();
                 writeln!(
                     stdout,
-                    "{}.",
-                    cursor::Goto(player_position.0 as u16, player_position.1 as u16)
+                    "{}.{}",
+                    cursor::Goto(player_position.0 as u16, player_position.1 as u16),
+                    cursor::Goto(new_pos.0 as u16, cur_height as u16)
                 )
                 .unwrap();
                 player_position = new_pos;
             }
             Key::Down => {
                 let new_pos = move_player(player_position, "down");
+                let cur_height = new_pos.1 - 1;
                 writeln!(
                     stdout,
                     "{}@",
@@ -131,8 +138,9 @@ fn main() {
                 .unwrap();
                 writeln!(
                     stdout,
-                    "{}.",
-                    cursor::Goto(player_position.0 as u16, player_position.1 as u16)
+                    "{}.{}",
+                    cursor::Goto(player_position.0 as u16, player_position.1 as u16),
+                    cursor::Goto(new_pos.0 as u16, cur_height as u16)
                 )
                 .unwrap();
                 player_position = new_pos;
