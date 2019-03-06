@@ -1,6 +1,6 @@
 extern crate termion;
 
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::io::{stdin, stdout, Write};
 use std::process::Command;
 
@@ -51,6 +51,7 @@ fn main() {
     // Dungeon Definitions
     let mut dungeon_map = HashMap::new();
     let mut dungeon_line = String::new();
+    let mut old_square = '.';
     write!(stdout, "{}", cursor::Goto(1, 4)).unwrap();
     for c in dungeon.chars() {
         if c == '\n' {
@@ -76,6 +77,7 @@ fn main() {
             Key::Left => {
                 let new_pos = move_player(player_position, "left");
                 let cur_height = new_pos.1 - 1;
+                let new_square = dungeon_map.get(&(new_pos.0 as i16, cur_height as u16));
                 writeln!(
                     stdout,
                     "{}@",
@@ -84,16 +86,19 @@ fn main() {
                 .unwrap();
                 writeln!(
                     stdout,
-                    "{}.{}",
+                    "{}{}{}",
                     cursor::Goto(player_position.0 as u16, player_position.1 as u16),
+                    old_square,
                     cursor::Goto(new_pos.0 as u16, cur_height as u16)
                 )
                 .unwrap();
                 player_position = new_pos;
+                old_square = *new_square.unwrap();
             }
             Key::Right => {
                 let new_pos = move_player(player_position, "right");
                 let cur_height = new_pos.1 - 1;
+                let new_square = dungeon_map.get(&(new_pos.0 as i16, cur_height as u16));
                 writeln!(
                     stdout,
                     "{}@",
@@ -102,16 +107,19 @@ fn main() {
                 .unwrap();
                 writeln!(
                     stdout,
-                    "{}.{}",
+                    "{}{}{}",
                     cursor::Goto(player_position.0 as u16, player_position.1 as u16),
+                    old_square,
                     cursor::Goto(new_pos.0 as u16, cur_height as u16)
                 )
                 .unwrap();
                 player_position = new_pos;
+                old_square = *new_square.unwrap();
             }
             Key::Up => {
                 let new_pos = move_player(player_position, "up");
                 let cur_height = new_pos.1 - 1;
+                let new_square = dungeon_map.get(&(new_pos.0 as i16, cur_height as u16));
                 writeln!(
                     stdout,
                     "{}@",
@@ -120,16 +128,19 @@ fn main() {
                 .unwrap();
                 writeln!(
                     stdout,
-                    "{}.{}",
+                    "{}{}{}",
                     cursor::Goto(player_position.0 as u16, player_position.1 as u16),
+                    old_square,
                     cursor::Goto(new_pos.0 as u16, cur_height as u16)
                 )
                 .unwrap();
                 player_position = new_pos;
+                old_square = *new_square.unwrap();
             }
             Key::Down => {
                 let new_pos = move_player(player_position, "down");
                 let cur_height = new_pos.1 - 1;
+                let new_square = dungeon_map.get(&(new_pos.0 as i16, cur_height as u16));
                 writeln!(
                     stdout,
                     "{}@",
@@ -138,12 +149,14 @@ fn main() {
                 .unwrap();
                 writeln!(
                     stdout,
-                    "{}.{}",
+                    "{}{}{}",
                     cursor::Goto(player_position.0 as u16, player_position.1 as u16),
+                    old_square,
                     cursor::Goto(new_pos.0 as u16, cur_height as u16)
                 )
                 .unwrap();
                 player_position = new_pos;
+                old_square = *new_square.unwrap();
             }
             _ => writeln!(stdout, "{}Oops!", cursor::Goto(1, 80)).unwrap(),
         }
@@ -165,4 +178,15 @@ fn move_player(old: (i16, i16), direction: &str) -> (i16, i16) {
     };
     let new_pos = (old.0 + adjust.0, old.1 + adjust.1);
     new_pos
+}
+
+fn is_valid_move(pos: char) -> bool {
+    let mut check = true;
+    let mut barriers = HashSet::new();
+    barriers.insert('#');
+    barriers.insert('+');
+    if barriers.contains(&pos) {
+        check = false;
+    }
+    check
 }
