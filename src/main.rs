@@ -78,85 +78,93 @@ fn main() {
                 let new_pos = move_player(player_position, "left");
                 let cur_height = new_pos.1 - 1;
                 let new_square = dungeon_map.get(&(new_pos.0 as i16, cur_height as u16));
-                writeln!(
-                    stdout,
-                    "{}@",
-                    cursor::Goto(new_pos.0 as u16, new_pos.1 as u16)
-                )
-                .unwrap();
-                writeln!(
-                    stdout,
-                    "{}{}{}",
-                    cursor::Goto(player_position.0 as u16, player_position.1 as u16),
-                    old_square,
-                    cursor::Goto(new_pos.0 as u16, cur_height as u16)
-                )
-                .unwrap();
-                player_position = new_pos;
-                old_square = *new_square.unwrap();
+                if is_valid_move(*new_square.unwrap()) == true {
+                    writeln!(
+                        stdout,
+                        "{}@",
+                        cursor::Goto(new_pos.0 as u16, new_pos.1 as u16)
+                    )
+                    .unwrap();
+                    writeln!(
+                        stdout,
+                        "{}{}{}",
+                        cursor::Goto(player_position.0 as u16, player_position.1 as u16),
+                        old_square,
+                        cursor::Goto(new_pos.0 as u16, cur_height as u16)
+                    )
+                    .unwrap();
+                    player_position = new_pos;
+                    old_square = *new_square.unwrap();
+                }
             }
             Key::Right => {
                 let new_pos = move_player(player_position, "right");
                 let cur_height = new_pos.1 - 1;
                 let new_square = dungeon_map.get(&(new_pos.0 as i16, cur_height as u16));
-                writeln!(
-                    stdout,
-                    "{}@",
-                    cursor::Goto(new_pos.0 as u16, new_pos.1 as u16)
-                )
-                .unwrap();
-                writeln!(
-                    stdout,
-                    "{}{}{}",
-                    cursor::Goto(player_position.0 as u16, player_position.1 as u16),
-                    old_square,
-                    cursor::Goto(new_pos.0 as u16, cur_height as u16)
-                )
-                .unwrap();
-                player_position = new_pos;
-                old_square = *new_square.unwrap();
+                if is_valid_move(*new_square.unwrap()) == true {
+                    writeln!(
+                        stdout,
+                        "{}@",
+                        cursor::Goto(new_pos.0 as u16, new_pos.1 as u16)
+                    )
+                    .unwrap();
+                    writeln!(
+                        stdout,
+                        "{}{}{}",
+                        cursor::Goto(player_position.0 as u16, player_position.1 as u16),
+                        old_square,
+                        cursor::Goto(new_pos.0 as u16, cur_height as u16)
+                    )
+                    .unwrap();
+                    player_position = new_pos;
+                    old_square = *new_square.unwrap();
+                }
             }
             Key::Up => {
                 let new_pos = move_player(player_position, "up");
                 let cur_height = new_pos.1 - 1;
                 let new_square = dungeon_map.get(&(new_pos.0 as i16, cur_height as u16));
-                writeln!(
-                    stdout,
-                    "{}@",
-                    cursor::Goto(new_pos.0 as u16, new_pos.1 as u16)
-                )
-                .unwrap();
-                writeln!(
-                    stdout,
-                    "{}{}{}",
-                    cursor::Goto(player_position.0 as u16, player_position.1 as u16),
-                    old_square,
-                    cursor::Goto(new_pos.0 as u16, cur_height as u16)
-                )
-                .unwrap();
-                player_position = new_pos;
-                old_square = *new_square.unwrap();
+                if is_valid_move(*new_square.unwrap()) == true {
+                    writeln!(
+                        stdout,
+                        "{}@",
+                        cursor::Goto(new_pos.0 as u16, new_pos.1 as u16)
+                    )
+                    .unwrap();
+                    writeln!(
+                        stdout,
+                        "{}{}{}",
+                        cursor::Goto(player_position.0 as u16, player_position.1 as u16),
+                        old_square,
+                        cursor::Goto(new_pos.0 as u16, cur_height as u16)
+                    )
+                    .unwrap();
+                    player_position = new_pos;
+                    old_square = *new_square.unwrap();
+                }
             }
             Key::Down => {
                 let new_pos = move_player(player_position, "down");
                 let cur_height = new_pos.1 - 1;
                 let new_square = dungeon_map.get(&(new_pos.0 as i16, cur_height as u16));
-                writeln!(
-                    stdout,
-                    "{}@",
-                    cursor::Goto(new_pos.0 as u16, new_pos.1 as u16)
-                )
-                .unwrap();
-                writeln!(
-                    stdout,
-                    "{}{}{}",
-                    cursor::Goto(player_position.0 as u16, player_position.1 as u16),
-                    old_square,
-                    cursor::Goto(new_pos.0 as u16, cur_height as u16)
-                )
-                .unwrap();
-                player_position = new_pos;
-                old_square = *new_square.unwrap();
+                if is_valid_move(*new_square.unwrap()) == true {
+                    writeln!(
+                        stdout,
+                        "{}@",
+                        cursor::Goto(new_pos.0 as u16, new_pos.1 as u16)
+                    )
+                    .unwrap();
+                    writeln!(
+                        stdout,
+                        "{}{}{}",
+                        cursor::Goto(player_position.0 as u16, player_position.1 as u16),
+                        old_square,
+                        cursor::Goto(new_pos.0 as u16, cur_height as u16)
+                    )
+                    .unwrap();
+                    player_position = new_pos;
+                    old_square = *new_square.unwrap();
+                }
             }
             _ => writeln!(stdout, "{}Oops!", cursor::Goto(1, 80)).unwrap(),
         }
