@@ -70,11 +70,15 @@ fn main() {
             width += 1;
         }
     }
-    // controls
+
+    // Controls
     for k in stdin.keys() {
         match k.unwrap() {
             Key::Char('q') => break,
             Key::Left => {
+                if old_square == '@' {
+                    old_square = '.';
+                }
                 let new_pos = move_player(player_position, "left");
                 let cur_height: i16 = new_pos.1 - 1;
                 let new_square = dungeon_map.get(&(new_pos.0 as u16, cur_height as u16));
@@ -98,6 +102,9 @@ fn main() {
                 }
             }
             Key::Right => {
+                if old_square == '@' {
+                    old_square = '.';
+                }
                 let new_pos = move_player(player_position, "right");
                 let cur_height = new_pos.1 - 1;
                 let new_square = dungeon_map.get(&(new_pos.0 as u16, cur_height as u16));
@@ -121,6 +128,9 @@ fn main() {
                 }
             }
             Key::Up => {
+                if old_square == '@' {
+                    old_square = '.';
+                }
                 let new_pos = move_player(player_position, "up");
                 let cur_height = new_pos.1 - 1;
                 let new_square = dungeon_map.get(&(new_pos.0 as u16, cur_height as u16));
@@ -144,6 +154,9 @@ fn main() {
                 }
             }
             Key::Down => {
+                if old_square == '@' {
+                    old_square = '.';
+                }
                 let new_pos = move_player(player_position, "down");
                 let cur_height = new_pos.1 - 1;
                 let new_square = dungeon_map.get(&(new_pos.0 as u16, cur_height as u16));
