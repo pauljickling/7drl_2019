@@ -1,4 +1,7 @@
 extern crate termion;
+pub mod player;
+
+// use self::player::*;
 
 use std::collections::{HashMap, HashSet};
 use std::io::{stdin, stdout, Write};
@@ -36,10 +39,10 @@ fn main() {
     let stdin = stdin();
     let mut stdout = stdout().into_raw_mode().unwrap();
 
-    write!(
+    writeln!(
         stdout,
         "{}{}Roguelike Prototype. Press q to quit.",
-        cursor::Goto(1, 1),
+        cursor::Goto(1, 2),
         color::Fg(color::LightGreen)
     )
     .unwrap();
@@ -48,6 +51,9 @@ fn main() {
     let mut height: u16 = 3;
     let mut width: u16 = 5;
     let mut player_position: (u16, u16) = (0, 0);
+
+    // Player Definition
+    // let user = Player::new();
 
     // Dungeon Definitions
     let mut dungeon_map = HashMap::new();
@@ -166,17 +172,12 @@ fn main() {
             .unwrap(),
         }
     }
-    write!(
-        stdout,
-        "{}",
-        cursor::Goto(player_position.0, player_position.1)
-    )
-    .unwrap();
 
     // Controls
     for k in stdin.keys() {
         match k.unwrap() {
             Key::Char('q') => break,
+            // Key::Char(',') => user.get_item(old_square),
             Key::Left => {
                 if old_square == '@' {
                     old_square = '.';
