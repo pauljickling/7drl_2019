@@ -46,7 +46,7 @@ fn main() {
 
     // Cursor Definitions
     let mut height: u16 = 3;
-    let mut width: u16 = 1;
+    let mut width: u16 = 5;
     let mut player_position: (u16, u16) = (0, 0);
 
     // Dungeon Definitions
@@ -57,10 +57,10 @@ fn main() {
     for c in dungeon.chars() {
         if c == '\n' {
             height += 1;
-            width = 1;
+            width = 5;
             writeln!(stdout, "{}", dungeon_line).unwrap();
             dungeon_line.clear();
-            writeln!(stdout, "{}", cursor::Goto(1, height)).unwrap();
+            writeln!(stdout, "{}", cursor::Goto(5, height)).unwrap();
         } else {
             if c == '@' {
                 player_position = (width, height);
@@ -166,6 +166,12 @@ fn main() {
             .unwrap(),
         }
     }
+    write!(
+        stdout,
+        "{}",
+        cursor::Goto(player_position.0, player_position.1)
+    )
+    .unwrap();
 
     // Controls
     for k in stdin.keys() {
@@ -186,10 +192,11 @@ fn main() {
                     .unwrap();
                     writeln!(
                         stdout,
-                        "{}{}{}",
+                        "{}{}{}{}",
                         cursor::Goto(player_position.0, player_position.1),
                         old_square,
-                        cursor::Goto(new_pos.0 as u16, new_pos.1 as u16)
+                        cursor::Goto(new_pos.0 as u16, new_pos.1 as u16),
+                        cursor::Up(1)
                     )
                     .unwrap();
                     player_position = (new_pos.0 as u16, new_pos.1 as u16);
@@ -211,10 +218,11 @@ fn main() {
                     .unwrap();
                     writeln!(
                         stdout,
-                        "{}{}{}",
+                        "{}{}{}{}",
                         cursor::Goto(player_position.0, player_position.1),
                         old_square,
-                        cursor::Goto(new_pos.0 as u16, new_pos.1 as u16)
+                        cursor::Goto(new_pos.0 as u16, new_pos.1 as u16),
+                        cursor::Up(1)
                     )
                     .unwrap();
                     player_position = (new_pos.0 as u16, new_pos.1 as u16);
@@ -236,10 +244,11 @@ fn main() {
                     .unwrap();
                     writeln!(
                         stdout,
-                        "{}{}{}",
+                        "{}{}{}{}",
                         cursor::Goto(player_position.0, player_position.1),
                         old_square,
-                        cursor::Goto(new_pos.0 as u16, new_pos.1 as u16)
+                        cursor::Goto(new_pos.0 as u16, new_pos.1 as u16),
+                        cursor::Up(1)
                     )
                     .unwrap();
                     player_position = (new_pos.0 as u16, new_pos.1 as u16);
@@ -261,10 +270,11 @@ fn main() {
                     .unwrap();
                     writeln!(
                         stdout,
-                        "{}{}{}",
+                        "{}{}{}{}",
                         cursor::Goto(player_position.0, player_position.1),
                         old_square,
-                        cursor::Goto(new_pos.0 as u16, new_pos.1 as u16)
+                        cursor::Goto(new_pos.0 as u16, new_pos.1 as u16),
+                        cursor::Up(1)
                     )
                     .unwrap();
                     player_position = (new_pos.0 as u16, new_pos.1 as u16);
